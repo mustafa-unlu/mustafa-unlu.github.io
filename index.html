@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mustafa ÜNLÜ — Sistem Operatörü & Raporlama Uzmanı</title>
+
+    <!--
+  DÜZENLEME REHBERİ — bu sayfayı kendinize göre uyarlamak için:
+  1) [Ad Soyad] geçen her yeri kendi adınızla değiştirin (3 yerde: title, hero, footer).
+  2) .hero-desc içindeki tanıtım metnini kendi cümlelerinizle güncelleyin.
+  3) .kpi-strip içindeki "[X] yıl" ve diğer köşeli parantezli alanları doldurun.
+  4) .skills-grid içindeki durum noktalarını (dot-green / dot-amber / dot-grey)
+     gerçek seviyenize göre ayarlayın.
+  5) .project-card içine gerçek proje linkinizi (GitHub reposu) ekleyin.
+  6) .timeline içine iş deneyiminizi girin.
+  7) footer içindeki LinkedIn / GitHub / e-posta linklerini kendi bilgilerinizle değiştirin.
+-->
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+      :root {
+        --bg: #eff2ed;
+        --paper: #f7f8f5;
+        --ink: #16241c;
+        --ink-soft: #4a554c;
+        --line: #cdd4c9;
+        --card: #ffffff;
+        --green: #2f6f4e;
+        --green-soft: #e4eee7;
+        --amber: #c97a1a;
+        --amber-soft: #f6e9d6;
+        --grey-dot: #a9b0a5;
+        --radius: 3px;
+        --max: 880px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          "Inter",
+          -apple-system,
+          sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* --- Rapor üst şeridi --- */
+      .report-bar {
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+      .report-bar .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+        color: var(--ink-soft);
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        position: relative;
+        padding: 72px 0 56px;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            rgba(22, 36, 28, 0.05) 0 1px,
+            transparent 1px 40px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgba(22, 36, 28, 0.05) 0 1px,
+            transparent 1px 40px
+          );
+        mask-image: linear-gradient(to bottom, black, transparent 85%);
+        pointer-events: none;
+      }
+      .hero-inner {
+        position: relative;
+      }
+      .eyebrow {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        color: var(--green);
+        text-transform: uppercase;
+        margin: 0 0 14px;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(34px, 6vw, 54px);
+        line-height: 1.05;
+        margin: 0 0 18px;
+        letter-spacing: -0.01em;
+      }
+      .hero-desc {
+        max-width: 56ch;
+        font-size: 16.5px;
+        color: var(--ink-soft);
+        margin: 0 0 36px;
+      }
+
+      /* --- KPI şeridi (dashboard kart görünümü) --- */
+      .kpi-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 36px;
+      }
+      .kpi-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--green);
+        border-radius: var(--radius);
+        padding: 14px 14px 12px;
+      }
+      .kpi-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.08em;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .kpi-value {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14.5px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 18px;
+        border-radius: var(--radius);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid var(--ink);
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .btn-primary:hover {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink);
+      }
+      .btn-ghost:hover {
+        background: var(--card);
+      }
+      .btn:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 2px;
+      }
+
+      /* --- Genel bölüm düzeni --- */
+      section {
+        padding: 52px 0;
+        border-top: 1px solid var(--line);
+      }
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 26px;
+      }
+      .section-num {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--green);
+      }
+      h2 {
+        font-family: "Fraunces", serif;
+        font-size: 26px;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .about-note {
+        background: var(--card);
+        border-left: 3px solid var(--green);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        padding: 18px 22px;
+        max-width: 64ch;
+        color: var(--ink-soft);
+        font-size: 15.5px;
+      }
+
+      /* --- Yetkinlikler --- */
+      .skills-group {
+        margin-bottom: 22px;
+      }
+      .skills-group-title {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 10px;
+      }
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .skill-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 7px 13px 7px 10px;
+        font-size: 13.5px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex: 0 0 auto;
+      }
+      .dot-green {
+        background: var(--green);
+      }
+      .dot-amber {
+        background: var(--amber);
+      }
+      .dot-grey {
+        background: var(--grey-dot);
+      }
+      .legend {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        margin-top: 14px;
+      }
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* --- Proje kartı --- */
+      .project-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px;
+      }
+      .project-title {
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 8px;
+      }
+      .project-desc {
+        color: var(--ink-soft);
+        font-size: 15px;
+        max-width: 60ch;
+        margin: 0 0 22px;
+      }
+      .process {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+      .process-step {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: var(--paper);
+      }
+      .process-num {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        color: var(--green);
+        margin-bottom: 6px;
+      }
+      .process-title {
+        font-weight: 600;
+        font-size: 14.5px;
+        margin-bottom: 4px;
+      }
+      .process-desc {
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      .project-link {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        color: var(--green);
+        text-decoration: none;
+        border-bottom: 1px solid var(--green);
+      }
+
+      /* --- Deneyim zaman çizelgesi --- */
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 18px;
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+      }
+      .timeline-item:first-child {
+        border-top: none;
+      }
+      .tl-date {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-soft);
+      }
+      .tl-role {
+        font-weight: 600;
+        margin: 0 0 4px;
+      }
+      .tl-place {
+        color: var(--ink-soft);
+        font-size: 14px;
+        margin: 0 0 10px;
+      }
+      .tl-list {
+        margin: 0;
+        padding-left: 18px;
+        font-size: 14.5px;
+        color: var(--ink-soft);
+      }
+      .tl-list li {
+        margin-bottom: 4px;
+      }
+
+      /* --- Footer (fiş/receipt referansı) --- */
+      footer {
+        border-top: 1px dashed var(--line);
+        padding: 34px 0 46px;
+        margin-top: 20px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .footer-links a {
+        text-decoration: none;
+        font-size: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .footer-links a:hover {
+        border-color: var(--ink);
+      }
+      .footer-meta {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        color: var(--grey-dot);
+        letter-spacing: 0.04em;
+      }
+
+      /* --- Reveal animasyonu --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* --- Mobil --- */
+      @media (max-width: 680px) {
+        .kpi-strip {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .process {
+          grid-template-columns: 1fr;
+        }
+        .timeline-item {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        h1 {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="report-bar">
+      <div class="wrap">
+        <span>RAPOR: PROFİL-ÖZET · SATIŞ & STOK ANALİZİ</span>
+        <span>SÜRÜM: 1.0</span>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">Sistem Operatörü & Raporlama Uzmanı</p>
+        <h1>Mustafa ÜNLÜ</h1>
+        <p class="hero-desc">
+          Yerel bir markette satış ve stok verilerini analiz ediyor, Excel, SQL,
+          VBA, DAX ve Power BI ile raporlama süreçlerini kuruyorum. Şu anda
+          Python ile analiz araç setimi genişletiyorum.
+        </p>
+
+        <div class="kpi-strip">
+          <div class="kpi-card">
+            <div class="kpi-label">Deneyim</div>
+            <div class="kpi-value">3 yıl</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Odak Alanı</div>
+            <div class="kpi-value">Satış & Stok Analizi</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Temel Araçlar</div>
+            <div class="kpi-value">Excel · SQL · Power BI</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Şu An Öğreniyor</div>
+            <div class="kpi-value">Python</div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a
+            class="btn btn-primary"
+            href="https://www.linkedin.com/in/mustafa-%C3%BCnl%C3%BC-46667a99/"
+            >LinkedIn'de Bağlan</a
+          >
+          <a class="btn btn-ghost" href="#">GitHub Profilim</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2>Hakkımda</h2>
+        </div>
+        <p class="about-note">
+          Perakende operasyonlarında sistem operatörü ve raporlama uzmanı olarak
+          çalışıyorum. Günlük işimin merkezinde satış ve stok verisini anlamlı
+          raporlara dönüştürmek var. Excel'de iyi seviyedeyim; SQL, VBA, DAX ve
+          Power BI konularında kendimi geliştiriyorum. Hedefim, analizlerimi
+          Python ile daha ölçeklenebilir ve otomatik hale getirmek.
+        </p>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2>Yetkinlikler</h2>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-title">Raporlama & Veri</div>
+          <div class="skills-grid">
+            <span class="skill-pill"
+              ><span class="dot dot-green"></span>Excel</span
+            >
+            <span class="skill-pill"
+              ><span class="dot dot-amber"></span>SQL</span
+            >
+            <span class="skill-pill"
+              ><span class="dot dot-amber"></span>VBA</span
+            >
+            <span class="skill-pill"
+              ><span class="dot dot-amber"></span>DAX</span
+            >
+            <span class="skill-pill"
+              ><span class="dot dot-amber"></span>Power BI</span
+            >
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-title">Geliştirme (yeni başlıyor)</div>
+          <div class="skills-grid">
+            <span class="skill-pill"
+              ><span class="dot dot-grey"></span>Python</span
+            >
+          </div>
+        </div>
+
+        <div class="legend">
+          <span><span class="dot dot-green"></span>İyi seviye</span>
+          <span><span class="dot dot-amber"></span>Gelişiyor</span>
+          <span><span class="dot dot-grey"></span>Yeni başlıyor</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2>Proje</h2>
+        </div>
+
+        <div class="project-card">
+          <p class="project-title">
+            Satış & Stok Analizi — Uçtan Uca Örnek Proje
+          </p>
+          <p class="project-desc">
+            Gerçekçi bir satış-stok veri seti üzerinde SQL ile veri hazırlama,
+            Python ile analiz ve görselleştirme, sonuçların da bu site üzerinden
+            paylaşılmasını kapsayan bir öğrenme projesi.
+          </p>
+          <div class="process">
+            <div class="process-step">
+              <div class="process-num">01</div>
+              <div class="process-title">Veri</div>
+              <div class="process-desc">
+                Örnek satış & stok veri seti oluşturma
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="process-num">02</div>
+              <div class="process-title">Analiz</div>
+              <div class="process-desc">SQL ve Python ile inceleme</div>
+            </div>
+            <div class="process-step">
+              <div class="process-num">03</div>
+              <div class="process-title">İçgörü</div>
+              <div class="process-desc">Bulguların görselleştirilmesi</div>
+            </div>
+          </div>
+          <a class="project-link" href="#">GitHub reposunu görüntüle →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2>Deneyim</h2>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">2024 — Günümüz</div>
+          <div>
+            <p class="tl-role">Sistem Operatörü & Raporlama Uzmanı</p>
+            <p class="tl-place">Başdaş Maket · İZMİR</p>
+            <ul class="tl-list">
+              <li>Satış ve stok verilerinin günlük/haftalık raporlanması</li>
+              <li>Excel ve SQL ile veri analizi süreçlerinin geliştirilmesi</li>
+              <li>Power BI ve DAX ile raporlama altyapısının kurulması</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/mustafa-%C3%BCnl%C3%BC-46667a99/"
+            >LinkedIn</a
+          >
+          <a href="#">GitHub</a>
+          <a href="mustafaunlu09@hotmail.com">E-posta</a>
+        </div>
+        <p class="footer-meta">MUSTAFA ÜNLÜ · SON GÜNCELLEME: AĞUSTOS 2026</p>
+      </div>
+    </footer>
+
+    <script>
+      var els = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12 },
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      } else {
+        els.forEach(function (el) {
+          el.classList.add("in");
+        });
+      }
+    </script>
+  </body>
+</html>
